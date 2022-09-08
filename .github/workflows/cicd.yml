@@ -49,5 +49,5 @@ jobs:
     uses: ./.gihub/workflows/slack-event.yml
     with:
       ENVIRONMENT: ${{ inputs.ENVIRONMENT }}
-      SLACK_CHANNEL_ID: c8-notifications
+      SLACK_CHANNEL_ID: bobrov-test
       STATUS: $${{ needs.deploy-production.result }}
