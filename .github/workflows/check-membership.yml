@@ -23,7 +23,3 @@ jobs:
           username: ${{ github.actor }}
           team: 'deployers-production'
           GITHUB_TOKEN: ${{ secrets.PAT }}
-      - if: ${{ steps.check-membership.outputs.isTeamMember == 'false' }}
-        run: echo 'User ${{ github.actor }} can't deploy in production'
-      - if: ${{ steps.check-membership.outputs.isTeamMember == 'true' }}
-        run: echo 'User ${{ github.actor }} can deploy in production'
