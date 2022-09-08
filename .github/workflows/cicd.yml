@@ -1,0 +1,53 @@
+name: CI CD Production
+
+on:
+  workflow_dispatch:
+    inputs:
+      ENVIRONMENT:
+        type: environment
+        description: 'Set environment'
+        required: true
+        default: production
+      IS_PROD:
+        type: boolean
+        description: 'Deploy in production?'
+        required: true
+        default: false
+
+jobs:
+  check_membersip:
+    name: Check membership
+    uses: tspascoal/get-user-teams-membership@v1
+    with:
+      username: ${{ github.actor }}
+      team: 'deployers-production'
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  get_vars:
+    name: Expose variables
+    needs: check_membership
+    if: ${{ jobs.check_membership.outputs.isTeamMember == 'true' }}
+    uses: ./.github/workflows/vars.yml
+    with:
+      ENVIRONMENT: ${{ inputs.ENVIRONMENT }}
+
+  deploy-production:
+    name: Deploy production
+    needs: get_vars
+    if: ${{ inputs.ENVIRONMENT == 'production' && inputs.IS_PROD == true }}
+    uses: ./.github/workflows/deploy_prod.yml
+    with:
+      ENVIRONMENT: ${{ inputs.ENVIRONMENT }}
+      SSH_HOST: ${{ needs.get_vars.outputs.DEPLOY_TO }}
+      FOLDER_PATH: ${{ needs.get_vars.outputs.FOLDER_PATH }}
+    secrets: inherit
+
+  notify:
+    name: Notify on Slack
+    if: always()
+    needs: deploy-production
+    uses: ./.gihub/workflows/slack-event.yml
+    with:
+      ENVIRONMENT: ${{ inputs.ENVIRONMENT }}
+      SLACK_CHANNEL_ID: c8-notifications
+      STATUS: $${{ needs.deploy-production.result }}
