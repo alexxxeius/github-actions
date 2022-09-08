@@ -37,7 +37,7 @@ jobs:
               "branch": "${{ github.ref_name }}",
               "status": "${{ inputs.STATUS }}",
               "user": "${{ github.actor }}",
-              "commit_hash": ${{ github.sha }}
+              "commit_hash": "${{ github.sha }}"
             }
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
