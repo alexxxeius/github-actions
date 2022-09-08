@@ -40,4 +40,4 @@ jobs:
               "commit_hash": ${{ github.sha }}
             }
         env:
-          SLACK_WEBHOOK_URL: "https://hooks.slack.com/services/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"
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
