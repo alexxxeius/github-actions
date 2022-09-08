@@ -32,7 +32,7 @@ jobs:
           channel-id: ${{ inputs.SLACK_CHANNEL_ID }}
           payload: |
             {
-              "text": "GitHub Action build result: ${{ job.status }},
+              "text": "GitHub Action build result: ${{ job.status }}",
               "repository": "${{ github.repository }}",
               "environment": "${{ inputs.ENVIRONMENT }}",
               "branch": "${{ github.ref_name }}",
