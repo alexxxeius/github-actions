@@ -37,7 +37,7 @@ jobs:
             			"type": "header",
             			"text": {
             				"type": "plain_text",
-            				"text": "Deployment",
+            				"text": "GitHub Action build result: ${{ job.status }}",
             				"emoji": true
             			}
             		},
