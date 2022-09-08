@@ -32,21 +32,58 @@ jobs:
           channel-id: ${{ inputs.SLACK_CHANNEL_ID }}
           payload: |
             {
-              "text": "GitHub Action build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}",
-              "blocks": [
-                {
-                  "type": "section",
-                  "text": {
-                    "type": "mrkdwn",
-                    "repository": "${{ github.repository }}",
-                    "environment": "${{ inputs.ENVIRONMENT }}",
-                    "branch": "${{ github.ref_name }}",
-                    "status": "${{ inputs.STATUS }}",
-                    "user": "${{ github.actor }}",
-                    "commit_hash": "${{ github.sha }}"
-                  }
-                }
-              ]
+            	"blocks": [
+            		{
+            			"type": "header",
+            			"text": {
+            				"type": "plain_text",
+            				"text": "Deployment",
+            				"emoji": true
+            			}
+            		},
+            		{
+            			"type": "section",
+            			"fields": [
+            				{
+            					"type": "mrkdwn",
+            					"text": "*Repository:*\n${{ github.repository }}"
+            				},
+            				{
+            					"type": "mrkdwn",
+            					"text": "*Environment:*\n{{ inputs.ENVIRONMENT }}"
+            				}
+            			]
+            		},
+            		{
+            			"type": "section",
+            			"fields": [
+            				{
+            					"type": "mrkdwn",
+            					"text": "*Branch:*\n${{ github.ref_name }}"
+            				},
+            				{
+            					"type": "mrkdwn",
+            					"text": "*Status:*\n${{ inputs.STATUS }}"
+            				}
+            			]
+            		},
+            		{
+            			"type": "section",
+            			"fields": [
+            				{
+            					"type": "mrkdwn",
+            					"text": "*User:*\n${{ github.actor }}"
+            				}
+            			]
+            		},
+            		{
+            			"type": "section",
+            			"text": {
+            				"type": "mrkdwn",
+            				"text": "*Commit Hash:*\n${{ github.sha }}"
+            			}
+            		}
+            	]
             }
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
