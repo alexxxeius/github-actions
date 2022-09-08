@@ -30,6 +30,6 @@ jobs:
         uses: slackapi/slack-github-action@v1.21.0
         with:
           channel-id: ${{ inputs.SLACK_CHANNEL_ID }}
-          slack-message: "GitHub Action build result: ${{ job.status }}\n repository: ${{ github.repository }}\n environment: ${{ inputs.ENVIRONMENT }}\n branch: ${{ github.ref_name }}\n status: ${{ inputs.STATUS }}\n user: ${{ github.actor }}\n commit_hash: ${{ github.sha }}",
+          slack-message: "GitHub Action build result: ${{ job.status }}\n repository: ${{ github.repository }}\n environment: ${{ inputs.ENVIRONMENT }}\n branch: ${{ github.ref_name }}\n status: ${{ inputs.STATUS }}\n user: ${{ github.actor }}\n commit_hash: ${{ github.sha }}"
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
