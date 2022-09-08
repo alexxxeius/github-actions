@@ -23,3 +23,4 @@ jobs:
           username: ${{ github.actor }}
           team: 'deployers-production'
           GITHUB_TOKEN: ${{ secrets.PAT }}
+      - run: echo "${{ steps.check-membership.outputs.isTeamMember }}"
