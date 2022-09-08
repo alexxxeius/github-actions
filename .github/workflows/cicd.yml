@@ -24,7 +24,7 @@ jobs:
   get_vars:
     name: Expose variables
     needs: check_membership
-    if: ${{ jobs.check_membership.outputs.IS_TEAM_MEMBER == 'true' }}
+    if: ${{ needs.check_membership.outputs.IS_TEAM_MEMBER == 'true' }}
     uses: ./.github/workflows/vars.yml
     with:
       ENVIRONMENT: ${{ inputs.ENVIRONMENT }}
