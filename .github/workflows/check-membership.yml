@@ -23,4 +23,7 @@ jobs:
           username: ${{ github.actor }}
           team: 'deployers-production'
           GITHUB_TOKEN: ${{ secrets.PAT }}
+      - if: ${{ steps.check-membership.outputs.isTeamMember == 'false' }}
+
       - if: ${{ steps.check-membership.outputs.isTeamMember == 'true' }}
+        run: echo 'User ${{ github.actor }} can deploy in production'
