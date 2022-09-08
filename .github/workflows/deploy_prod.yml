@@ -1,0 +1,41 @@
+name: Deploy Production
+
+on:
+  workflow_call:
+    inputs:
+      ENVIRONMENT:
+        description: 'Environment name'
+        type: string
+        required: true
+      FOLDER_PATH:
+        description: 'Folder path'
+        type: string
+        required: true
+      SSH_HOST:
+        description: 'Host name'
+        type: string
+        required: true
+
+env:
+  UTILS_HOST: utils.captiv8.io
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy via SSH
+        run: |
+          echo "host: ${{ inputs.SSH_HOST }}"
+          echo "username: ${{ secrets.SSH_USERNAME }}"
+          echo "key: ${{ secrets.SSH_KEY }}"
+          echo "port: ${{ secrets.SSH_HOST }}"
+          echo "cd ${{ inputs.FOLDER_PATH }}"
+
+      - name: Deploy via SSH in utils host
+        run: |
+          echo "host: ${{ env.UTILS_HOST }}"
+          echo "username: ${{ secrets.SSH_USERNAME }}"
+          echo "key: ${{ secrets.SSH_KEY }}"
+          echo "port: ${{ secrets.SSH_HOST }}"
+          echo "cd ${{ inputs.FOLDER_PATH }}"
