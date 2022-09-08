@@ -17,16 +17,14 @@ on:
 jobs:
   check_membership:
     name: Check membership
-    uses: tspascoal/get-user-teams-membership@v1
-    with:
-      username: ${{ github.actor }}
-      team: 'deployers-production'
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    if: ${{ inputs.IS_PROD == 'true' }}
+    uses: ./.github/workflows/check-membership.yml
+    secrets: inherit
 
   get_vars:
     name: Expose variables
     needs: check_membership
-    if: ${{ jobs.check_membership.outputs.isTeamMember == 'true' }}
+    if: ${{ jobs.check_membership.outputs.IS_TEAM_MEMBER == 'true' }}
     uses: ./.github/workflows/vars.yml
     with:
       ENVIRONMENT: ${{ inputs.ENVIRONMENT }}
