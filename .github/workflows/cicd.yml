@@ -44,7 +44,7 @@ jobs:
     name: Notify on Slack
     if: always()
     needs: deploy-production
-    uses: ./.gihub/workflows/slack-event.yml
+    uses: ./.github/workflows/slack-event.yml
     with:
       ENVIRONMENT: ${{ inputs.ENVIRONMENT }}
       SLACK_CHANNEL_ID: bobrov-test
