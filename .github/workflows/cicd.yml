@@ -17,6 +17,7 @@ on:
 jobs:
   check_membership:
     name: Check membership
+    if: ${{ inputs.IS_PROD == 'true' }}
     uses: ./.github/workflows/check-membership.yml
     secrets: inherit
 
