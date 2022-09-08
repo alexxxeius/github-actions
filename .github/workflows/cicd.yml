@@ -15,7 +15,7 @@ on:
         default: false
 
 jobs:
-  check_membersip:
+  check_membership:
     name: Check membership
     uses: tspascoal/get-user-teams-membership@v1
     with:
