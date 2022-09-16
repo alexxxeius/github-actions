@@ -1,0 +1,21 @@
+name: CI CD
+
+on:
+  workflow_dispatch:
+    inputs:
+      ENVIRONMENT:
+        type: environment
+        description: 'Set environment'
+        required: true
+      IS_PROD:
+        type: boolean
+        description: 'Deploy in production?'
+        required: true
+        default: false
+
+jobs:
+
+  build:
+    name: Deploy non-production
+    uses: ./.github/workflows/cicd_chrome_build.yml
+    secrets: inherit
