@@ -1,4 +1,4 @@
-name: CI CD
+name: CI CD Chrome extension
 
 on:
   workflow_dispatch:
