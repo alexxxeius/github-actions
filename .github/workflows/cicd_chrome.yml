@@ -16,6 +16,6 @@ on:
 jobs:
 
   build:
-    name: Deploy non-production
+    name: Chrome Extension Build
     uses: ./.github/workflows/cicd_chrome_build.yml
     secrets: inherit

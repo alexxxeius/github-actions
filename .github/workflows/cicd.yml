@@ -47,6 +47,6 @@ jobs:
     with:
       ENVIRONMENT: ${{ inputs.ENVIRONMENT }}
       SLACK_CHANNEL_ID: bobrov-test
-      STATUS: $${{ needs.deploy-production.result }}
+      STATUS: ${{ needs.deploy-production.result }}
     secrets:
       SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
