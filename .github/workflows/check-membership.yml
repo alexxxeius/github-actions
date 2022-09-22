@@ -21,6 +21,6 @@ jobs:
         id: check-membership
         with:
           username: ${{ github.actor }}
-          team: 'qa'
+          team: 'devops-deployer'
           GITHUB_TOKEN: ${{ secrets.PAT }}
       - run: echo "${{ steps.check-membership.outputs.isTeamMember }}"
