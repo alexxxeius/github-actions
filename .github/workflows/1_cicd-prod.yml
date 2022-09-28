@@ -25,7 +25,7 @@ jobs:
       ENVIRONMENT: $DEPLOY_ENVIRONMENT
       SSH_HOST: ${{ needs.get_vars.outputs.DEPLOY_TO }}
       FOLDER_PATH: ${{ needs.get_vars.outputs.FOLDER_PATH }}
-      UTILS_HOST: ${{ env.UTILS_HOST }}
+      UTILS_HOST: $UTILS_HOST
     secrets: inherit
 
   notify:
