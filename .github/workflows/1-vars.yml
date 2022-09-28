@@ -1,0 +1,52 @@
+name: Expose variables
+
+on:
+  workflow_call:
+    inputs:
+      ENVIRONMENT:
+        type: string
+        description: 'Environment name'
+        required: true
+    outputs:
+      DEPLOY_TO:
+        description: "SSH host to deploy backend to"
+        value: ${{ jobs.set_vars.outputs.deploy_to }}
+      FOLDER_PATH:
+        description: "Folder path"
+        value: ${{ jobs.set_vars.outputs.folder_path }}
+
+jobs:
+  set_vars:
+    environment: ${{ inputs.ENVIRONMENT }}
+
+    runs-on: ubuntu-latest
+
+    outputs:
+      deploy_to: ${{ steps.export.outputs.deploy_to }}
+      folder_path: ${{ steps.export.outputs.folder_path }}
+
+    steps:
+      - uses: kanga333/variable-mapper@master
+        id: export
+        with:
+          key: ${{ inputs.ENVIRONMENT }}
+          map: |
+            {
+             "alpha": {
+                "deploy_to": "platform.alpha.captiv8.io",
+                "folder_path": "/home/c8prod/captiv8.io"
+              },
+              "dev": {
+                "deploy_to": "platform.dev.captiv8.io",
+                "folder_path": "/home/c8prod/captiv8.io"
+              },
+              "staging": {
+                "deploy_to": "platform.staging.captiv8.io",
+                "folder_path": "/home/c8prod/captiv8.io"
+              },
+              "production": {
+                "deploy_to": "platform.captiv8.io",
+                "folder_path": "/home/c8prod/captiv8.io"
+              }
+            }
+          export_to: log,output

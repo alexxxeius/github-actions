@@ -1,0 +1,40 @@
+name: CI CD Non-Prod
+
+on:
+  push:
+    branches:
+      - master
+      - main
+
+env:
+  ENVIRONMENT: 'production'
+  UTILS_HOST: 'utils.captiv8.io'
+
+
+jobs:
+  get_vars:
+    name: Expose variables
+    uses: ./.github/workflows/vars.yml
+    with:
+      ENVIRONMENT: ${{ env.ENVIRONMENT }}
+
+  deploy:
+    name: Deploy Production
+    needs: get_vars
+    uses: ./.github/workflows/deploy.yml
+    with:
+      ENVIRONMENT: ${{ env.ENVIRONMENT }}
+      SSH_HOST: ${{ needs.get_vars.outputs.DEPLOY_TO }}
+      FOLDER_PATH: ${{ needs.get_vars.outputs.FOLDER_PATH }}
+      UTILS_HOST: ${{ env.UTILS_HOST }}
+    secrets: inherit
+
+  notify:
+    name: Notify on Slack
+    if: always()
+    needs: deploy
+    uses: ./.github/workflows/slack-event.yml
+    with:
+      ENVIRONMENT: ${{ inputs.ENVIRONMENT }}
+      SLACK_CHANNEL_ID: c8-be-notifications
+      STATUS: ${{ needs.deploy.result }}

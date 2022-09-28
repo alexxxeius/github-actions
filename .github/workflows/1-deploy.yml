@@ -1,0 +1,40 @@
+name: Deploy
+
+on:
+  workflow_call:
+    inputs:
+      ENVIRONMENT:
+        description: 'Environment name'
+        type: string
+        required: true
+      FOLDER_PATH:
+        description: 'Folder path'
+        type: string
+        required: true
+      SSH_HOST:
+        description: 'Host name'
+        type: string
+        required: true
+      UTILS_HOST:
+        description: 'Host name'
+        type: string
+        required: false
+        default: ''
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy via SSH
+        run: |
+          echo ${{ inputs.FOLDER_PATH }}
+          echo ${{ inputs.SSH_HOST }}
+          echo ${{ inputs.ENVIRONMENT }}
+
+      - name: Deploy via SSH in Utils host
+        if: ${{ inputs.UTILS_HOST != '' }}
+        run: |
+          echo ${{ inputs.FOLDER_PATH }}
+          echo ${{ inputs.UTILS_HOST }}
+          echo ${{ inputs.ENVIRONMENT }}
