@@ -12,6 +12,11 @@ on:
           - info
           - warning
           - debug
+      ENVIRONMENTS:
+        type: string
+        description: 'Environment name'
+        required: true
+        default: 'production'
       ENVIRONMENT:
         type: environment
         description: 'Set environment'
