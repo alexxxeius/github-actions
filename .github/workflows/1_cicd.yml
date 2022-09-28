@@ -16,14 +16,14 @@ on:
 jobs:
   get_vars:
     name: Expose variables
-    uses: ./.github/workflows/vars.yml
+    uses: ./.github/workflows/1-vars.yml
     with:
       ENVIRONMENT: ${{ inputs.ENVIRONMENT }}
 
   deploy:
     name: Deploy non-production
     needs: get_vars
-    uses: ./.github/workflows/deploy.yml
+    uses: ./.github/workflows/1-deploy.yml
     if: ${{ inputs.ENVIRONMENT != 'production' }}
     with:
       ENVIRONMENT: ${{ inputs.ENVIRONMENT }}
@@ -34,9 +34,11 @@ jobs:
   notify:
     name: Notify on Slack
     if: always()
-    needs: deploy
+    needs: deploy-production
     uses: ./.github/workflows/slack-event.yml
     with:
       ENVIRONMENT: ${{ inputs.ENVIRONMENT }}
-      SLACK_CHANNEL_ID: c8-be-notifications
-      STATUS: ${{ needs.deploy.result }}
+      SLACK_CHANNEL_ID: bobrov-test
+      STATUS: ${{ needs.deploy-production.result }}
+    secrets:
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
