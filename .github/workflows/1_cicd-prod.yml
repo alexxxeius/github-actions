@@ -1,29 +1,28 @@
 name: CI CD Non-Prod
 
+env:
+  DEPLOY_ENVIRONMENT: 'production'
+  UTILS_HOST: 'utils.captiv8.io'
+
 on:
   push:
     branches:
       - master
       - main
 
-env:
-  ENVIRONMENT: 'production'
-  UTILS_HOST: 'utils.captiv8.io'
-
-
 jobs:
   get_vars:
     name: Expose variables
     uses: ./.github/workflows/1-vars.yml
     with:
-      ENVIRONMENT: ${{ env.ENVIRONMENT }}
+      ENVIRONMENT: ${{ env.DEPLOY_ENVIRONMENT }}
 
   deploy:
     name: Deploy Production
     needs: get_vars
     uses: ./.github/workflows/1-deploy.yml
     with:
-      ENVIRONMENT: ${{ env.ENVIRONMENT }}
+      ENVIRONMENT: ${{ env.DEPLOY_ENVIRONMENT }}
       SSH_HOST: ${{ needs.get_vars.outputs.DEPLOY_TO }}
       FOLDER_PATH: ${{ needs.get_vars.outputs.FOLDER_PATH }}
       UTILS_HOST: ${{ env.UTILS_HOST }}
@@ -35,7 +34,7 @@ jobs:
     needs: deploy-production
     uses: ./.github/workflows/slack-event.yml
     with:
-      ENVIRONMENT: ${{ env.ENVIRONMENT }}
+      ENVIRONMENT: ${{ env.DEPLOY_ENVIRONMENT }}
       SLACK_CHANNEL_ID: bobrov-test
       STATUS: ${{ needs.deploy-production.result }}
     secrets:
