@@ -15,14 +15,14 @@ jobs:
     name: Expose variables
     uses: ./.github/workflows/1-vars.yml
     with:
-      ENVIRONMENT: ${{ env.DEPLOY_ENVIRONMENT }}
+      ENVIRONMENT: $DEPLOY_ENVIRONMENT
 
   deploy:
     name: Deploy Production
     needs: get_vars
     uses: ./.github/workflows/1-deploy.yml
     with:
-      ENVIRONMENT: ${{ env.DEPLOY_ENVIRONMENT }}
+      ENVIRONMENT: $DEPLOY_ENVIRONMENT
       SSH_HOST: ${{ needs.get_vars.outputs.DEPLOY_TO }}
       FOLDER_PATH: ${{ needs.get_vars.outputs.FOLDER_PATH }}
       UTILS_HOST: ${{ env.UTILS_HOST }}
@@ -31,10 +31,10 @@ jobs:
   notify:
     name: Notify on Slack
     if: always()
-    needs: deploy-production
+    needs: deploy
     uses: ./.github/workflows/slack-event.yml
     with:
-      ENVIRONMENT: ${{ env.DEPLOY_ENVIRONMENT }}
+      ENVIRONMENT: $DEPLOY_ENVIRONMENT
       SLACK_CHANNEL_ID: bobrov-test
       STATUS: ${{ needs.deploy-production.result }}
     secrets:
