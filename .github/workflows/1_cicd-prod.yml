@@ -31,7 +31,7 @@ jobs:
   notify:
     name: Notify on Slack
     if: always()
-    needs: deploy-production
+    needs: deploy
     uses: ./.github/workflows/slack-event.yml
     with:
       ENVIRONMENT: ${{ env.DEPLOY_ENVIRONMENT }}
