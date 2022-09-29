@@ -1,4 +1,4 @@
-name: CI CD Non-Prod
+name: CI CD Production Deployment
 
 on:
   push:
