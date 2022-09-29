@@ -37,7 +37,7 @@ jobs:
     needs: deploy
     uses: ./.github/workflows/slack-event.yml
     with:
-      ENVIRONMENT: ${{ env.ENVIRONMENT }}
+      ENVIRONMENT: ${{ inputs.ENVIRONMENT }}
       SLACK_CHANNEL_ID: bobrov-test
       STATUS: ${{ needs.deploy-production.result }}
     secrets:
