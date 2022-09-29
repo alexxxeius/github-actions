@@ -1,8 +1,8 @@
 name: CI CD Non-Prod
 
 env:
-  DEPLOY_ENVIRONMENT: "production"
-  UTILS_HOST: "utils.captiv8.io"
+  DEPLOY_ENVIRONMENT: production
+  UTILS_HOST: utils.captiv8.io
 
 on:
   push:
