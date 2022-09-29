@@ -40,6 +40,6 @@ jobs:
       ENVIRONMENT: ${{ inputs.ENVIRONMENT }}
       SLACK_CHANNEL_ID: bobrov-test
       STATUS_1: ${{ needs.deploy_1.result }}
-      STATUS_2: ${{ needs.deploy_2.result }}
+      STATUS_2: Didn't deploy
     secrets:
       SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
