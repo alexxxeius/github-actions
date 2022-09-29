@@ -27,7 +27,7 @@ jobs:
     if: ${{ inputs.ENVIRONMENT != 'production' }}
     with:
       ENVIRONMENT: ${{ inputs.ENVIRONMENT }}
-      SSH_HOST: ${{ needs.get_vars.outputs.DEPLOY_TO }}
+      SSH_HOST: ${{ needs.get_vars.outputs.DEPLOY_TO_1 }}
       FOLDER_PATH: ${{ needs.get_vars.outputs.FOLDER_PATH }}
     secrets: inherit
 

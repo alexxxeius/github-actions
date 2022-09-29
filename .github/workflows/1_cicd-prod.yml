@@ -13,15 +13,24 @@ jobs:
     with:
       ENVIRONMENT: production
 
-  deploy:
-    name: Deploy Production
+  deploy_1:
+    name: Deploy Production in Platform
     needs: get_vars
     uses: ./.github/workflows/1-deploy.yml
     with:
       ENVIRONMENT: production
-      SSH_HOST: ${{ needs.get_vars.outputs.DEPLOY_TO }}
+      SSH_HOST: ${{ needs.get_vars.outputs.DEPLOY_TO_1 }}
       FOLDER_PATH: ${{ needs.get_vars.outputs.FOLDER_PATH }}
-      UTILS_HOST: ${{ secrets.UTILS_HOST }}
+    secrets: inherit
+
+  deploy_2:
+    name: Deploy Production in Utils
+    needs: [get_vars, deploy_1]
+    uses: ./.github/workflows/1-deploy.yml
+    with:
+      ENVIRONMENT: production
+      SSH_HOST: ${{ needs.get_vars.outputs.DEPLOY_TO_2 }}
+      FOLDER_PATH: ${{ needs.get_vars.outputs.FOLDER_PATH }}
     secrets: inherit
 
   notify:

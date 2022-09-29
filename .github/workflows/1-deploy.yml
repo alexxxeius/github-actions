@@ -15,11 +15,6 @@ on:
         description: 'Host name'
         type: string
         required: true
-      UTILS_HOST:
-        description: 'Host name'
-        type: string
-        required: false
-        default: ''
 
 jobs:
   deploy:
@@ -30,11 +25,4 @@ jobs:
         run: |
           echo ${{ inputs.FOLDER_PATH }}
           echo ${{ inputs.SSH_HOST }}
-          echo ${{ inputs.ENVIRONMENT }}
-
-      - name: Deploy via SSH in Utils host
-        if: ${{ inputs.ENVIRONMENT == 'production' }}
-        run: |
-          echo ${{ inputs.FOLDER_PATH }}
-          echo ${{ secrets.UTILS_HOST }} >> utils_host.txt
           echo ${{ inputs.ENVIRONMENT }}

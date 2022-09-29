@@ -8,9 +8,12 @@ on:
         description: 'Environment name'
         required: true
     outputs:
-      DEPLOY_TO:
+      DEPLOY_TO_1:
         description: "SSH host to deploy backend to"
-        value: ${{ jobs.set_vars.outputs.deploy_to }}
+        value: ${{ jobs.set_vars.outputs.deploy_to_1 }}
+      DEPLOY_TO_2:
+        description: "SSH host to deploy backend to"
+        value: ${{ jobs.set_vars.outputs.deploy_to_2 }}
       FOLDER_PATH:
         description: "Folder path"
         value: ${{ jobs.set_vars.outputs.folder_path }}
@@ -22,7 +25,8 @@ jobs:
     runs-on: ubuntu-latest
 
     outputs:
-      deploy_to: ${{ steps.export.outputs.deploy_to }}
+      deploy_to_1: ${{ steps.export.outputs.deploy_to_1 }}
+      deploy_to_2: ${{ steps.export.outputs.deploy_to_2 }}
       folder_path: ${{ steps.export.outputs.folder_path }}
 
     steps:
@@ -33,19 +37,23 @@ jobs:
           map: |
             {
              "alpha": {
-                "deploy_to": "platform.alpha.captiv8.io",
+                "deploy_to_1": "platform.alpha.captiv8.io",
+                "deploy_to_2": "",
                 "folder_path": "/home/c8prod/captiv8.io"
               },
               "dev": {
-                "deploy_to": "platform.dev.captiv8.io",
+                "deploy_to_1": "platform.dev.captiv8.io",
+                "deploy_to_2": "",
                 "folder_path": "/home/c8prod/captiv8.io"
               },
               "staging": {
-                "deploy_to": "platform.staging.captiv8.io",
+                "deploy_to_1": "platform.staging.captiv8.io",
+                "deploy_to_2": "",
                 "folder_path": "/home/c8prod/captiv8.io"
               },
               "production": {
-                "deploy_to": "platform.captiv8.io",
+                "deploy_to_1": "platform.captiv8.io",
+                "deploy_to_2": "utils.captiv8.io",
                 "folder_path": "/home/c8prod/captiv8.io"
               }
             }
