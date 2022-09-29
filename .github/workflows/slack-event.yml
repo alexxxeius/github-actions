@@ -11,9 +11,13 @@ on:
         description: 'Slack channel ID where message will be posted'
         required: true
         type: string
-      STATUS:
+      STATUS_1:
         description: 'The result of a deployment job'
         required: true
+        type: string
+      STATUS_2:
+        description: 'The result of a deployment job'
+        required: false
         type: string
     secrets:
       SLACK_WEBHOOK_URL:
