@@ -67,7 +67,7 @@ jobs:
             				},
             				{
             					"type": "mrkdwn",
-            					"text": "*Status:*\n${{ inputs.STATUS_1 }} ${{ inputs.STATUS_2 }}"
+            					"text": "*User:*\n${{ github.actor }}"
             				}
             			]
             		},
@@ -76,8 +76,12 @@ jobs:
             			"fields": [
             				{
             					"type": "mrkdwn",
-            					"text": "*User:*\n${{ github.actor }}"
-            				}
+            					"text": "*Status 1:*\n${{ inputs.STATUS_1 }}"
+            				},
+                            {
+                                "type": "mrkdwn",
+                                "text": "*Status 2:*\n${{ inputs.STATUS_2 }}"
+                            }
             			]
             		},
             		{
