@@ -63,7 +63,7 @@ jobs:
             				},
             				{
             					"type": "mrkdwn",
-            					"text": "*Status:*\n${{ inputs.STATUS }}"
+            					"text": "*Status:*\n${{ inputs.STATUS_1 }} ${{ inputs.STATUS_2 }}"
             				}
             			]
             		},
