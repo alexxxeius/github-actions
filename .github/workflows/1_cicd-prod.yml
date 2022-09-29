@@ -1,9 +1,5 @@
 name: CI CD Non-Prod
 
-env:
-  DEPLOY_ENVIRONMENT: production
-  UTILS_HOST: utils.captiv8.io
-
 on:
   push:
     branches:
@@ -14,6 +10,9 @@ jobs:
   get_vars:
     name: Expose variables
     uses: ./.github/workflows/1-vars.yml
+    env:
+      ENVIRONMENT: production
+      UTILS_HOST: utils.captiv8.io
     with:
       ENVIRONMENT: ${{ env.DEPLOY_ENVIRONMENT }}
 
