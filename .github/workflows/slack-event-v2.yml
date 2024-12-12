@@ -1,0 +1,44 @@
+name: CI > Workflow > Push notification on Slack
+
+on:
+  workflow_dispatch:
+
+jobs:
+  send_event:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Send custom JSON data to Slack workflow
+        uses: slackapi/slack-github-action@v2.0.0
+        with:
+          method: chat.postMessage
+          channel-id: ${{ inputs.SLACK_CHANNEL_ID }}
+          payload: |
+            blocks:
+              - type: "header",
+            	text:
+            	  type: plain_text
+            	  text: "${{ github.workflow }} build result: inputs-STATUS"
+            	  emoji: true
+              - type: "section"
+            	fields:
+            	  type: "mrkdwn"
+            	  text: "*Repository:*\n${{ github.repository }}"
+              - type: "section"
+            	fields:
+            	  type: "mrkdwn"
+            	  text: "*Branch:*\n${{ github.ref_name }}"
+            	  type: "mrkdwn"
+            	  text: "*Status:*\n inputs-STATUS"
+              - type: "section"
+                fields:
+            	  type: "mrkdwn"
+                  text: "*User:*\n${{ github.actor }}"
+            	  type: "mrkdwn"
+                  text: "*Image tag:*\n inputs-IMAGE_TAG"
+              - type: "section"
+            	text:
+            	  type: "mrkdwn"
+            	  text: "*Commit Hash:*\n${{ github.sha }}"
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.ALB_SLACK_WEBHOOK_URL }}
