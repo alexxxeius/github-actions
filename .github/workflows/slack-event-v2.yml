@@ -39,7 +39,7 @@ jobs:
               - type: "section"
                 text:
                   type: "mrkdwn"
-                  text: "*Jobs status:*\n*Test:*success :white_check_mark:\n*Lint:*success :white_check_mark:"
+                  text: "*Jobs status:*\n *Test:* success :white_check_mark:\n*Lint:*success :white_check_mark:"
               - type: "section"
                 text:
                   type: "mrkdwn"
