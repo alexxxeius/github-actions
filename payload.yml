@@ -4,5 +4,5 @@ text: "GitHub Actions result"
 blocks:
   - type: "header"
     text:
-      type: plain_text
-      text: "${{ github.workflow }} build result: inputs-STATUS"
+      type: mrkdwn
+      text: "*${{ github.workflow }} build result:* inputs-STATUS"
