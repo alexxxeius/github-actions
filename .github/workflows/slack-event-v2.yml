@@ -23,7 +23,7 @@ jobs:
               - type: "section"
                 text:
                   type: "mrkdwn"
-                  text: "*Repository:*\n${{ github.repository }}"
+                  text: "*Repository:* ${{ github.repository }}"
               - type: "section"
                 block_id: "section567"
                 text:
@@ -34,3 +34,5 @@ jobs:
                 fields:
                   - type: "mrkdwn"
                     text: "*Average Rating*\\n1.0"
+                  - type: "mrkdwn"
+                    text: "*Average Rating*\\n2.0"
