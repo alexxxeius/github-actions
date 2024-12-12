@@ -57,7 +57,7 @@ jobs:
               echo "$var_name=$var_value :x:" >> $GITHUB_ENV
             fi
           done
-          printenv
+          cat $GITHUB_ENV
 
       - name: Send notification to Slack channel
         uses: slackapi/slack-github-action@v2.0.0
