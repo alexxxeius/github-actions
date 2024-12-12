@@ -11,7 +11,6 @@ jobs:
       - name: Send custom JSON data to Slack workflow
         uses: slackapi/slack-github-action@v2.0.0
         with:
-          errors: true
-          webhook-type: incoming-webhook
+          webhook-type: webhook-trigger
           webhook: ${{ secrets.ALB_SLACK_WEBHOOK_URL }}
           payload-file-path: "./payload.yml"
