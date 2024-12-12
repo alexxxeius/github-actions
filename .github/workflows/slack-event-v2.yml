@@ -31,9 +31,12 @@ jobs:
                   - type: "mrkdwn"
                     text: "*Status:*\ninputs.STATUS"
               - type: "section"
-                block_id: "section789"
                 fields:
                   - type: "mrkdwn"
-                    text: "*Average Rating*\\n1.0"
+                    text: "*User:*\n${{ github.actor }}"
                   - type: "mrkdwn"
-                    text: "*Average Rating*\\n2.0"
+                    text: "*Image tag:*\n${{ inputs.IMAGE_TAG }}"
+              - type: "section"
+                text:
+                  type: "mrkdwn"
+                  text: "*Commit Hash:*\n${{ github.sha }}"
