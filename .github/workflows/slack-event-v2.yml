@@ -14,7 +14,7 @@ jobs:
           webhook-type: incoming-webhook
           webhook: ${{ secrets.ALB_SLACK_WEBHOOK_URL }}
           payload: |
-            "text": "{{ github.workflow }} build result: ${{ inputs.STATUS }}"
+            "text": "${{ github.workflow }} build result: ${{ inputs.STATUS }}"
             "blocks":
               - type: "header"
                 text:
