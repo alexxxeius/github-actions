@@ -45,6 +45,8 @@ jobs:
           STATUSES=(LINT_JOB_STATUS TEST_JOB_STATUS BUILD_JOB_STATUS DEPLOY_API_JOB_STATUS DEPLOY_SIDEKIQ_JOB_STATUS)
           for var_name in ${STATUSES[@]}; do
             var_value=${!var_name}
+            echo $var_name
+            echo $var_value
             if [[ $var_value == 'success' ]]; then
               echo "$var_name=$var_value :white_check_mark:" >> $GITHUB_ENV
             elif [[ $var_value == 'skipped' ]]; then
