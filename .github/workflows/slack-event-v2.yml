@@ -25,10 +25,11 @@ jobs:
                   type: "mrkdwn"
                   text: "*Repository:* ${{ github.repository }}"
               - type: "section"
-                block_id: "section567"
-                text:
-                  type: "mrkdwn"
-                  text: "<https://example.com|Overlook Hotel> \\n :star: \\n Doors had too many axe holes, guest in room 237 was far too rowdy, whole place felt stuck in the 1920s."
+                fields:
+                  - type: "mrkdwn"
+                    text: "*Branch:*\n${{ github.ref_name }}"
+                  - type: "mrkdwn"
+                    text: "*Status:*\ninputs.STATUS"
               - type: "section"
                 block_id: "section789"
                 fields:
