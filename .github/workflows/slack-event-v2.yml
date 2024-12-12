@@ -12,8 +12,8 @@ jobs:
         uses: slackapi/slack-github-action@v2.0.0
         with:
           method: chat.postMessage
-          channel-id: ${{ inputs.SLACK_CHANNEL_ID }}
           payload: |
+            channel: C05LVTSFSJ0
             blocks:
               - type: "header",
             	text:
