@@ -15,6 +15,7 @@ jobs:
           webhook-type: incoming-webhook
           payload: |
             channel: C05LVTSFSJ0
+            text: "GitHub Actions result"
             blocks:
               - type: "header"
             	  text:
