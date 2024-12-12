@@ -38,10 +38,10 @@ jobs:
         id: process_vars
         run: |
           set -x
-          LINT_JOB_STATUS=${{ inputs.LINT_JOB_STATUS }},
-          TEST_JOB_STATUS=${{ inputs.TEST_JOB_STATUS }},
-          BUILD_JOB_STATUS=${{ inputs.BUILD_JOB_STATUS }},
-          DEPLOY_API_JOB_STATUS=${{ inputs.DEPLOY_API_JOB_STATUS }},
+          LINT_JOB_STATUS=${{ inputs.LINT_JOB_STATUS }}
+          TEST_JOB_STATUS=${{ inputs.TEST_JOB_STATUS }}
+          BUILD_JOB_STATUS=${{ inputs.BUILD_JOB_STATUS }}
+          DEPLOY_API_JOB_STATUS=${{ inputs.DEPLOY_API_JOB_STATUS }}
           DEPLOY_SIDEKIQ_JOB_STATUS=${{ inputs.DEPLOY_SIDEKIQ_JOB_STATUS }}
           STATUSES=(LINT_JOB_STATUS TEST_JOB_STATUS BUILD_JOB_STATUS DEPLOY_API_JOB_STATUS DEPLOY_SIDEKIQ_JOB_STATUS)
           for var_name in ${STATUSES[@]}; do
