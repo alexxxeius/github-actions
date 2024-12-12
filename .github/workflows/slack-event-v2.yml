@@ -12,6 +12,7 @@ jobs:
         uses: slackapi/slack-github-action@v2.0.0
         with:
           method: chat.postMessage
+          webhook-type: incoming-webhook
           payload: |
             channel: C05LVTSFSJ0
             blocks:
