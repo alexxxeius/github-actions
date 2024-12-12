@@ -2,19 +2,67 @@ name: Push notification to Slack v2
 
 on:
   workflow_dispatch:
+    inputs:
+      LINT_JOB_STATUS:
+        description: 'The result of a lint job'
+        required: true
+        type: string
+        default: 'success'
+      TEST_JOB_STATUS:
+        description: 'The result of a test job'
+        required: true
+        type: string
+        default: 'success'
+      BUILD_JOB_STATUS:
+        description: 'The result of a build job'
+        required: true
+        type: string
+        default: 'success'
+      DEPLOY_API_JOB_STATUS:
+        description: 'The result of a deploy API job'
+        required: true
+        type: string
+        default: 'success'
+      DEPLOY_SIDEKIQ_JOB_STATUS:
+        description: 'The result of a deploy Sidekiq job'
+        required: true
+        type: string
+        default: 'success'
 
 jobs:
   send_event:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Send custom JSON data to Slack workflow
+      - name: Process inputs to make payload
+        id: process_vars
+        run: |
+          LINT_JOB_STATUS=${{ inputs.LINT_JOB_STATUS }},
+          TEST_JOB_STATUS=${{ inputs.TEST_JOB_STATUS }},
+          BUILD_JOB_STATUS=${{ inputs.BUILD_JOB_STATUS }},
+          DEPLOY_API_JOB_STATUS=${{ inputs.DEPLOY_API_JOB_STATUS }},
+          DEPLOY_SIDEKIQ_JOB_STATUS=${{ inputs.DEPLOY_SIDEKIQ_JOB_STATUS }}
+          STATUSES=(LINT_JOB_STATUS TEST_JOB_STATUS BUILD_JOB_STATUS DEPLOY_API_JOB_STATUS DEPLOY_SIDEKIQ_JOB_STATUS)
+          for var_name in ${STATUSES[@]}; do
+            var_value=${!var_name}
+            if [[ $var_value == 'success' ]]; then
+              echo "$var_name=$var_value :white_check_mark:" >> $GITHUB_ENV
+            elif [[ $var_value == 'skipped' ]]; then
+              echo "$var_name=$var_value :white_circle:" >> $GITHUB_ENV
+            elif [[ $var_value == 'cancelled' ]]; then
+              echo "$var_name=$var_value :no_entry_sign:" >> $GITHUB_ENV
+            elif [[ $var_value == 'failure' ]]; then
+              echo "$var_name=$var_value :x:" >> $GITHUB_ENV
+            fi
+          done
+
+      - name: Send notification to Slack channel
         uses: slackapi/slack-github-action@v2.0.0
         with:
           webhook-type: incoming-webhook
-          webhook: ${{ secrets.ALB_SLACK_WEBHOOK_URL }}
+          webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
           payload: |
-            "text": "${{ github.workflow }} build result: ${{ inputs.STATUS }}"
+            "text": "${{ github.workflow }} deploy result: ${{ inputs.STATUS }}"
             "blocks":
               - type: "header"
                 text:
@@ -39,7 +87,7 @@ jobs:
               - type: "section"
                 text:
                   type: "mrkdwn"
-                  text: "*Jobs status:*\n *Test:* success :white_check_mark:\n *Lint:* success :white_check_mark:"
+                  text: "*Jobs status:*\n *Lint:* ${{ env.LINT_JOB_STATUS }}\n*Test:* ${{ env.TEST_JOB_STATUS }}\n*Build:* ${{ env.BUILD_JOB_STATUS }}\n*Deploy API:* ${{ env.DEPLOY_API_JOB_STATUS }}\n*Deploy Sidekiq:* ${{ env.DEPLOY_SIDEKIQ_JOB_STATUS }}"
               - type: "section"
                 text:
                   type: "mrkdwn"
