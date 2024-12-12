@@ -21,6 +21,6 @@ jobs:
                   type: "plain_text"
                   text: "${{ github.workflow }} build result: inputs-STATUS"
               - type: "section"
-            	  fields:
+                fields:
             	    - type: "mrkdwn"
             	      text: "*Repository:*\n${{ github.repository }}"
