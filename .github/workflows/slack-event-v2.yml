@@ -1,4 +1,4 @@
-name: CI > Workflow > Push notification on Slack
+name: Push notification to Slack v2
 
 on:
   workflow_dispatch:
@@ -21,6 +21,7 @@ jobs:
                   type: "plain_text"
                   text: "${{ github.workflow }} build result: inputs-STATUS"
               - type: "section"
+                block_id: "section1"
                 fields:
             	    - type: "mrkdwn"
             	      text: "*Repository:*\n${{ github.repository }}"
