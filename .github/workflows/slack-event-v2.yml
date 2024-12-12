@@ -11,15 +11,6 @@ jobs:
       - name: Send custom JSON data to Slack workflow
         uses: slackapi/slack-github-action@v2.0.0
         with:
-          method: chat.postMessage
           webhook-type: incoming-webhook
-          payload: |
-            channel: C05LVTSFSJ0
-            text: "GitHub Actions result"
-            blocks:
-              - type: "header"
-            	  text:
-            	    type: plain_text
-            	    text: "${{ github.workflow }} build result: inputs-STATUS"
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.ALB_SLACK_WEBHOOK_URL }}
+          webhook: ${{ secrets.ALB_SLACK_WEBHOOK_URL }}
+          payload-file-path: "./payload.yml"
