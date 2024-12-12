@@ -1,0 +1,8 @@
+---
+channel: C05LVTSFSJ0
+text: "GitHub Actions result"
+blocks:
+  - type: "header"
+    text:
+      type: plain_text
+      text: "${{ github.workflow }} build result: inputs-STATUS"
