@@ -21,6 +21,6 @@ jobs:
                   type: "plain_text"
                   text: "${{ github.workflow }} build result: inputs-STATUS"
               - type: "section"
-                text:
-                  type: "mrkdwn"
-                  text: "GitHub Action build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
+            	  fields:
+            	    type: "mrkdwn"
+            	    text: "*Repository:*\n${{ github.repository }}"
