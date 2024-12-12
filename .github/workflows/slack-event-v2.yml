@@ -16,6 +16,10 @@ jobs:
           payload: |
             "text": "Danny Torrence left a 1 star review for your property."
             "blocks":
+              - type: "header"
+                text:
+                  type: "plain_text"
+                  text: "${{ github.workflow }} build result: inputs-STATUS"
               - type: "section"
                 text:
                   type: "mrkdwn"
