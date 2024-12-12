@@ -22,5 +22,5 @@ jobs:
                   text: "${{ github.workflow }} build result: inputs-STATUS"
               - type: "section"
             	  fields:
-            	    type: "mrkdwn"
-            	    text: "*Repository:*\n${{ github.repository }}"
+            	    - type: "mrkdwn"
+            	      text: "*Repository:*\n${{ github.repository }}"
