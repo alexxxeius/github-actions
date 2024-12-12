@@ -20,26 +20,5 @@ jobs:
             	  text:
             	    type: plain_text
             	    text: "${{ github.workflow }} build result: inputs-STATUS"
-            	    emoji: true
-              - type: "section"
-            	  fields:
-            	    type: "mrkdwn"
-            	    text: "*Repository:*\n${{ github.repository }}"
-              - type: "section"
-            	  fields:
-            	    type: "mrkdwn"
-            	    text: "*Branch:*\n${{ github.ref_name }}"
-            	    type: "mrkdwn"
-            	    text: "*Status:*\n inputs-STATUS"
-              - type: "section"
-                fields:
-            	    type: "mrkdwn"
-                  text: "*User:*\n${{ github.actor }}"
-            	    type: "mrkdwn"
-                  text: "*Image tag:*\n inputs-IMAGE_TAG"
-              - type: "section"
-            	  text:
-            	    type: "mrkdwn"
-            	    text: "*Commit Hash:*\n${{ github.sha }}"
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.ALB_SLACK_WEBHOOK_URL }}
